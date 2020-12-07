@@ -26,7 +26,7 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
             }
         }) { (characterList) in
             self.characterList = characterList
-           // self.fetchdata()
+            self.fetchdata()
         }
         cancellables.insert(cancellable)
     }

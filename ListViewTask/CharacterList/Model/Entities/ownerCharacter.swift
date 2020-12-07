@@ -14,7 +14,8 @@ struct OwnerCharacter:Codable {
 
 }
 
-struct CharacterItem {
-    let owner:OwnerCharacter?
+struct CharacterItem :Identifiable{
+    var id = UUID()
+    let owner:OwnerCharacter
     let image:UIImage?
 }
