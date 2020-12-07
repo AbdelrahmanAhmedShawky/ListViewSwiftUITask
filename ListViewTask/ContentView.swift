@@ -1,11 +1,3 @@
-//
-//  ContentView.swift
-//  ListViewTask
-//
-//  Created by Abdelrahman Shawky on 12/7/20.
-//  Copyright © 2020 Abdelrahman Shawky. All rights reserved.
-//
-
 import SwiftUI
 
 struct ContentView: View {
