@@ -7,6 +7,8 @@ protocol CharacterListService {
     func getCharacterList() ->AnyPublisher<[CharacterListItem],ApiErorr>
     func getCharacterDataNeeded(url:String) ->AnyPublisher<OwnerCharacter,ApiErorr>
     func getCharacterListDetails(id:String) ->AnyPublisher<CharacterListItem2,ApiErorr>
+    func searchCharacterList(searchText:String) ->AnyPublisher<CharacterSearchListItem,ApiErorr>
+    
 }
 
 extension CharacterListService {
@@ -23,6 +25,11 @@ extension CharacterListService {
     
     func getCharacterListDetails(id:String) -> AnyPublisher<CharacterListItem2,ApiErorr> {
         return apiSession.request(with: CharacterEndPoints.characterListDetail(id))
+        .eraseToAnyPublisher()
+    }
+    
+    func searchCharacterList(searchText:String) -> AnyPublisher<CharacterSearchListItem,ApiErorr> {
+        return apiSession.request(with: CharacterEndPoints.searchCharacterList(searchText))
         .eraseToAnyPublisher()
     }
     

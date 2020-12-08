@@ -29,6 +29,7 @@
 		BC740946257EB1B3004C040D /* ApiErorr.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC740942257EB1B3004C040D /* ApiErorr.swift */; };
 		BC74094D257EB483004C040D /* CharacterListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC74094C257EB483004C040D /* CharacterListViewCell.swift */; };
 		BC740952257EB70B004C040D /* UrlImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC740951257EB70B004C040D /* UrlImageView.swift */; };
+		BC74095B25801320004C040D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC74095A25801320004C040D /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		BC740942257EB1B3004C040D /* ApiErorr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiErorr.swift; sourceTree = "<group>"; };
 		BC74094C257EB483004C040D /* CharacterListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewCell.swift; sourceTree = "<group>"; };
 		BC740951257EB70B004C040D /* UrlImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlImageView.swift; sourceTree = "<group>"; };
+		BC74095A25801320004C040D /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				BC740951257EB70B004C040D /* UrlImageView.swift */,
+				BC74095A25801320004C040D /* SearchBar.swift */,
 			);
 			path = Utitlity;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				2D14872A257E0A6800EA1E4A /* SceneDelegate.swift in Sources */,
 				2D7D1EBD257E3E5F00A9CC9E /* CharacterListViewModel.swift in Sources */,
 				2D148761257E1EF400EA1E4A /* ownerCharacter.swift in Sources */,
+				BC74095B25801320004C040D /* SearchBar.swift in Sources */,
 				2D7D1EB8257E2FDB00A9CC9E /* CharacterListService.swift in Sources */,
 				BC740952257EB70B004C040D /* UrlImageView.swift in Sources */,
 				BC740945257EB1B3004C040D /* RequestBuilder.swift in Sources */,

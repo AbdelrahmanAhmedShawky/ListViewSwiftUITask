@@ -4,6 +4,7 @@ enum CharacterEndPoints {
     case characterList
     case characterUrl(String)
     case characterListDetail(String)
+    case searchCharacterList(String)
 }
 
 extension CharacterEndPoints: RequestBuilder {
@@ -26,6 +27,12 @@ extension CharacterEndPoints: RequestBuilder {
         case .characterListDetail(let id):
             
             guard let url = URL(string: "https://api.github.com/repositories/\(id)")
+                else {preconditionFailure("Invalid URL format")}
+            
+            let request = URLRequest(url: url)
+            return request
+        case .searchCharacterList(let q):
+            guard let url = URL(string: "https://api.github.com/search/repositories?q=\(q)")
                 else {preconditionFailure("Invalid URL format")}
             
             let request = URLRequest(url: url)

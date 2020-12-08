@@ -8,8 +8,10 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     @Published var characterList = [CharacterListItem]()
     @Published var characteritemsList = [OwnerCharacter]()
     
-   private var cancellables = Set<AnyCancellable>()
+    @Published var searchCharacterListItems = [CharacterListItem]()
+    private var cancellables = Set<AnyCancellable>()
     
+    var searchTerm: String = ""
     
     init(apiSession: APIService = APISession()) {
         self.apiSession = apiSession
@@ -42,17 +44,33 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                     .sink(receiveCompletion: { result in
                         switch result {
                         case .failure(let error):
-                           print("Handle error: \(error)")
+                            print("Handle error: \(error)")
                         case .finished:
                             break
                         }
                     }) { finalResult in
                         self.characteritemsList.append(finalResult)
-                }
+                    }
                 cancellables.insert(cacellable)
             }
         }
         
     }
     
+    func searchCharacterList() {
+        let cancellable = self.searchCharacterList(searchText: searchTerm)
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .failure(let error):
+                    print("Handle error: \(error)")
+                case .finished:
+                    break
+                }
+            }) { finalResult in
+                print(finalResult.incompleteResults)
+                self.searchCharacterListItems = finalResult.items
+            }
+        cancellables.insert(cancellable)
+    }
+            
 }
