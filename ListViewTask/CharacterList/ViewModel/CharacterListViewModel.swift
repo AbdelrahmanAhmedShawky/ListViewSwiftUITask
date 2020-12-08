@@ -8,7 +8,7 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     @Published var characterList = [CharacterListItem]()
     @Published var characteritemsList = [OwnerCharacter]()
     
-    var cancellables = Set<AnyCancellable>()
+   private var cancellables = Set<AnyCancellable>()
     
     
     init(apiSession: APIService = APISession()) {
@@ -26,7 +26,6 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
             }
         }) { (characterList) in
             self.characterList = characterList
-           // self.getCharacterDataNeeded(characterList: characterList)
         }
         cancellables.insert(cancellable)
     }
