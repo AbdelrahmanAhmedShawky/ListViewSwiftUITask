@@ -11,8 +11,3 @@ struct OwnerCharacter:Codable,Identifiable {
     let createdAt:String?
     
 }
-
-struct CharacterItem :Identifiable{
-    var id = UUID()
-    let owner:OwnerCharacter
-}
