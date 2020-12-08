@@ -7,10 +7,10 @@ struct CharacterListView: View {
     
     var body: some View {
         NavigationView {
-            List(self.viewModel.characteritemsList) { item in
-                Text(item.owner.login ?? "")
+            List(self.viewModel.characterList) { item in
+                CharacterListViewCell(name: item.name, item: item.owner)
             }
-            .navigationBarTitle("Test")
+            .navigationBarTitle("Task")
         }
         .onAppear {
             self.viewModel.getCharacterList()

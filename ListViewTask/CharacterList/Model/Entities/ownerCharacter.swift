@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-struct OwnerCharacter:Codable {
+struct OwnerCharacter:Codable,Identifiable {
     
     let login: String?
     let id: Int?
@@ -10,12 +10,9 @@ struct OwnerCharacter:Codable {
     let type: String?
     let createdAt:String?
     
-   // let imageView:UIImage?
-
 }
 
 struct CharacterItem :Identifiable{
     var id = UUID()
     let owner:OwnerCharacter
-    let image:UIImage?
 }
