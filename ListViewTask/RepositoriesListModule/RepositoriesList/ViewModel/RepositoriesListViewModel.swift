@@ -20,32 +20,19 @@ class RepositoriesListViewModel: ObservableObject,RepositoriesListService {
     
     private var cancellables = Set<AnyCancellable>()
     
+    
     var searchTerm: String = ""
     
-    static private var itemsPerPage = 10
-    
-    private var start = -RepositoriesListViewModel.itemsPerPage
-    private var stop = -1
-    private var maxData = 10
     
     
     init(apiSession: APIService = APISession()) {
         self.apiSession = apiSession
         isLoading = false
         showAlert = false
+        self.getRepositoriesList()
     }
-    
-    
-    private func incrementPaginationIndices() {
-        
-        start += RepositoriesListViewModel.itemsPerPage
-        stop += RepositoriesListViewModel.itemsPerPage
-        
-        stop = min(maxData, stop)
-    }
-    
-    private func getRepositoriesList(completion: (() -> Void)? = nil) {
-    
+
+    func getRepositoriesList() {
         isLoading = true
         let cancellable = self.getRepositoriesList().sink(receiveCompletion: { result in
             switch result {
@@ -54,51 +41,16 @@ class RepositoriesListViewModel: ObservableObject,RepositoriesListService {
                 self.showAlert = true
                 print("Handle error: \(error)")
                 self.alertMessage = error.localizedDescription
-                completion?()
             case .finished:
                 self.isLoading = false
-                completion?()
                 break
             }
         }) { (repositoryList) in
             self.isLoading = false
             self.showAlert = false
             self.repositoryList = repositoryList
-            self.maxData = self.repositoryList.count
-            completion?()
         }
         cancellables.insert(cancellable)
-    }
-    
-    
-    private func retrieveDataFromAPI(completion: (() -> Void)? = nil) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-            guard let self = self else { return }
-            
-                self.getRepositoriesList {
-                    if self.start >= self.maxData-1 {
-                        completion?()
-                        
-                    }else {
-                        if !self.repositoryList.isEmpty {
-                            for i in self.start...self.stop {
-                                self.items.append(self.repositoryList[i])
-                            }
-                            completion?()
-                        }else {
-                            //completion?()
-                        }
-                    }
-                }
-        }
-    }
-    
-    
-    func getData(completion: (() -> Void)? = nil) {
-        
-        self.incrementPaginationIndices()
-        retrieveDataFromAPI (completion: completion)
-        
     }
     
     
@@ -119,7 +71,7 @@ class RepositoriesListViewModel: ObservableObject,RepositoriesListService {
                         }
                     }) { finalResult in
                         self.repositoryitemsList.append(finalResult)
-                }
+                    }
                 cancellables.insert(cacellable)
             }
         }
@@ -145,8 +97,9 @@ class RepositoriesListViewModel: ObservableObject,RepositoriesListService {
                 self.isLoading = false
                 self.showAlert = false
                 self.searchRepositoryListItems = finalResult.items
-        }
+            }
         cancellables.insert(cancellable)
     }
-    
+        
 }
+

@@ -49,7 +49,7 @@ struct RepositoriesListView: View {
                         }
                         .padding(.horizontal)
                         .navigationBarHidden(self.showCancelButton)
-                        ListPagination(items:self.viewModel.searchRepositoryListItems.isEmpty ? self.viewModel.items : self.viewModel.searchRepositoryListItems , offset: 8, pagination: self.viewModel.getData) { item in
+                        List(self.viewModel.searchRepositoryListItems.isEmpty ? self.viewModel.repositoryList : self.viewModel.searchRepositoryListItems ) { item in
                             RepositoriesListViewCell(name: item.name, item: item.owner, id: item.id)
                         }
                         .navigationBarTitle("Github Repositories")
@@ -58,7 +58,7 @@ struct RepositoriesListView: View {
                     
                 }}
                 .onAppear {
-                    self.viewModel.getData()
+                    self.viewModel.getRepositoriesList()
                 }
         }.alert(isPresented: $viewModel.showAlert) {
             Alert(
@@ -67,7 +67,7 @@ struct RepositoriesListView: View {
                 primaryButton: .destructive(Text("Retry"), action: {
                     UIApplication.shared.endEditing(true)
                     self.viewModel.searchTerm = ""
-                    self.viewModel.getData()
+                    self.viewModel.getRepositoriesList()
                     self.viewModel.searchRepositoryListItems.removeAll()
                 }),
                 secondaryButton: .default(Text("Cancel"), action: {
