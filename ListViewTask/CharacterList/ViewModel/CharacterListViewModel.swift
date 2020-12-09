@@ -8,9 +8,9 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     @Published var characterList = [CharacterListItem]()
     @Published var characteritemsList = [OwnerCharacter]()
     
-    @Published var isLoading: Bool
-    
     @Published var searchCharacterListItems = [CharacterListItem]()
+    
+    @Published var isLoading: Bool
     
     @Published var showAlert: Bool
     
@@ -73,7 +73,6 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     }
     
     func searchCharacterList() {
-        //isLoading = true
         let cancellable = self.searchCharacterList(searchText: searchTerm)
             .sink(receiveCompletion: { result in
                 switch result {

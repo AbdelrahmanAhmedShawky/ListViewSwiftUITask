@@ -7,37 +7,51 @@ struct CharacterListDetailsView: View {
     @ObservedObject var viewModel : CharacterListDetailsViewModel
     
     init(name:String,item: OwnerCharacter,id:Int) {
-        viewModel = CharacterListDetailsViewModel(itemOwner: item, id: id)
+        viewModel = CharacterListDetailsViewModel(id: id)
         self.item = item
         self.name = name
         self.id = id
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16.0) {
-                UrlImageView(urlString: item.avatarUrl)
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.5)
-                Divider()
-                HStack(alignment: .firstTextBaseline, spacing: 32) {
-                    VStack {
-                        Text(item.login ?? "")
-                        Divider()
-                        Text(viewModel.item?.fullName ?? "")
+        LoadingView(isShowing: .constant($viewModel.isLoading.wrappedValue)) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16.0) {
+                    UrlImageView(urlString: self.item.avatarUrl)
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.5)
+                    Divider()
+                    HStack(alignment: .firstTextBaseline, spacing: 32) {
+                        VStack {
+                            Text(self.item.login ?? "")
+                            Divider()
+                            Text(self.viewModel.item?.fullName ?? "")
+                        }
+                        VStack {
+                            Text(self.viewModel.item?.owner.type ?? "")
+                            Divider()
+                            Text(self.viewModel.dateString ?? "")
+                        }
                     }
-                    VStack {
-                        Text(viewModel.item?.owner.type ?? "")
-                        Divider()
-                        Text(viewModel.dateString ?? "")
-                    }
-                }
-                Spacer()
-            }.padding([.top],8)
+                    Spacer()
+                }.padding([.top],8)
+            }
+            .onAppear {
+                self.viewModel.getCharacterListDetails()
+            }
+            .navigationBarTitle(self.name.capitalized)
+        }.alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text(""),
+                message: Text($viewModel.alertMessage.wrappedValue),
+                primaryButton: .destructive(Text("Retry"), action: {
+                    self.viewModel.getCharacterListDetails()
+                }),
+                secondaryButton: .default(Text("Cancel"), action: {
+                    // do something
+                })
+            )
         }
-        .onAppear {
-            self.viewModel.getCharacterListDetails()
-        }
-        .navigationBarTitle(self.name.capitalized)
+        
     }
     
 }
