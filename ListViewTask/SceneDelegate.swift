@@ -1,11 +1,3 @@
-//
-//  SceneDelegate.swift
-//  ListViewTask
-//
-//  Created by Abdelrahman Shawky on 12/7/20.
-//  Copyright © 2020 Abdelrahman Shawky. All rights reserved.
-//
-
 import UIKit
 import SwiftUI
 
@@ -24,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let contentView = CharacterListView().environment(\.managedObjectContext, context)
+        let contentView = RepositoriesListView().environment(\.managedObjectContext, context)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

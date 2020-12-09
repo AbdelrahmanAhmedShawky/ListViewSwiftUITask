@@ -14,11 +14,11 @@ struct UrlImageView: View {
             .scaledToFill()
     }
     
-    static var defaultImage = UIImage(systemName: "photo")
+    static var defaultImage = UIImage(named: "picture")
     
 }
 
-class UrlImageModel: ObservableObject,CharacterListService {
+class UrlImageModel: ObservableObject,RepositoriesListService {
     var apiSession: APIService
     
     @Published var image: UIImage?
