@@ -1,9 +1,9 @@
 import SwiftUI
 import Combine
 
-struct CharacterListView: View {
+struct RepositoriesListView: View {
     
-    @ObservedObject var viewModel = CharacterListViewModel()
+    @ObservedObject var viewModel = RepositoriesListViewModel()
     @State private var showCancelButton: Bool = false
     
     var body: some View {
@@ -16,20 +16,17 @@ struct CharacterListView: View {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                 TextField("search", text: self.$viewModel.searchTerm, onEditingChanged: { isEditing in
-                                    self.viewModel.isSearchBegin = true
-                                    self.viewModel.getData()
+                                    self.viewModel.searchRepositoriesList()
                                     self.showCancelButton = true
                                 }, onCommit: {
-                                    self.viewModel.isSearchBegin = true
-                                    self.viewModel.getData()
+                                    self.viewModel.searchRepositoriesList()
                                     self.showCancelButton = true
                                 }).foregroundColor(.primary)
                                 
                                 Button(action: {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
-                                    self.viewModel.isSearchBegin = false
-                                    self.viewModel.searchCharacterListItems.removeAll()
+                                    self.viewModel.searchRepositoryListItems.removeAll()
                                     self.showCancelButton = false
                                 }) {
                                     Image(systemName: "xmark.circle.fill").opacity(self.viewModel.searchTerm == "" ? 0 : 1)
@@ -44,8 +41,7 @@ struct CharacterListView: View {
                                 Button("Cancel") {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
-                                    self.viewModel.searchCharacterListItems.removeAll()
-                                     self.viewModel.isSearchBegin = false
+                                    self.viewModel.searchRepositoryListItems.removeAll()
                                     self.showCancelButton = false
                                 }
                                 .foregroundColor(Color(.systemBlue))
@@ -53,17 +49,17 @@ struct CharacterListView: View {
                         }
                         .padding(.horizontal)
                         .navigationBarHidden(self.showCancelButton)
-                        ListPagination(items: self.viewModel.items, offset: 8, pagination: self.viewModel.getData) { item in
-                          CharacterListViewCell(name: item.name, item: item.owner, id: item.id)
+                        ListPagination(items:self.viewModel.searchRepositoryListItems.isEmpty ? self.viewModel.items : self.viewModel.searchRepositoryListItems , offset: 8, pagination: self.viewModel.getData) { item in
+                            RepositoriesListViewCell(name: item.name, item: item.owner, id: item.id)
                         }
-                        .navigationBarTitle("Task")
+                        .navigationBarTitle("Github Repositories")
                         .resignKeyboardOnDragGesture()
                     }
                     
                 }}
                 .onAppear {
-                     self.viewModel.getData()
-            }
+                    self.viewModel.getData()
+                }
         }.alert(isPresented: $viewModel.showAlert) {
             Alert(
                 title: Text(""),
@@ -71,9 +67,8 @@ struct CharacterListView: View {
                 primaryButton: .destructive(Text("Retry"), action: {
                     UIApplication.shared.endEditing(true)
                     self.viewModel.searchTerm = ""
-                     self.viewModel.isSearchBegin = false
                     self.viewModel.getData()
-                    self.viewModel.searchCharacterListItems.removeAll()
+                    self.viewModel.searchRepositoryListItems.removeAll()
                 }),
                 secondaryButton: .default(Text("Cancel"), action: {
                     // do something
@@ -84,32 +79,8 @@ struct CharacterListView: View {
     }
 }
 
-struct CharacterListView_Previews: PreviewProvider {
+struct RepositoriesListView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterListView()
-    }
-}
-
-extension UIApplication {
-    func endEditing(_ force: Bool) {
-        self.windows
-            .filter{$0.isKeyWindow}
-            .first?
-            .endEditing(force)
-    }
-}
-
-struct ResignKeyboardOnDragGesture: ViewModifier {
-    var gesture = DragGesture().onChanged{_ in
-        UIApplication.shared.endEditing(true)
-    }
-    func body(content: Content) -> some View {
-        content.gesture(gesture)
-    }
-}
-
-extension View {
-    func resignKeyboardOnDragGesture() -> some View {
-        return modifier(ResignKeyboardOnDragGesture())
+        RepositoriesListView()
     }
 }

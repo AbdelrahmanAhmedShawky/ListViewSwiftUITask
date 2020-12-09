@@ -2,29 +2,29 @@ import Foundation
 import Combine
 import UIKit
 
-class CharacterListViewModel: ObservableObject,CharacterListService {
+class RepositoriesListViewModel: ObservableObject,RepositoriesListService {
     var apiSession: APIService
     
-    @Published var characterList = [CharacterListItem]()
-    @Published var characteritemsList = [OwnerCharacter]()
+    @Published var repositoryList = [RepositoriesListItem]()
+    @Published var repositoryitemsList = [OwnerCharacter]()
     
-    @Published var items: [CharacterListItem] = []
+    @Published var items: [RepositoriesListItem] = []
     
-    @Published var searchCharacterListItems = [CharacterListItem]()
+    @Published var searchRepositoryListItems = [RepositoriesListItem]()
     
     @Published var isLoading: Bool
     
     @Published var showAlert: Bool
     
     @Published var alertMessage = ""
-    var isSearchBegin :Bool
     
     private var cancellables = Set<AnyCancellable>()
     
     var searchTerm: String = ""
     
     static private var itemsPerPage = 10
-    private var start = -CharacterListViewModel.itemsPerPage
+    
+    private var start = -RepositoriesListViewModel.itemsPerPage
     private var stop = -1
     private var maxData = 10
     
@@ -33,22 +33,21 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
         self.apiSession = apiSession
         isLoading = false
         showAlert = false
-        isSearchBegin = false
     }
     
     
     private func incrementPaginationIndices() {
         
-        start += CharacterListViewModel.itemsPerPage
-        stop += CharacterListViewModel.itemsPerPage
+        start += RepositoriesListViewModel.itemsPerPage
+        stop += RepositoriesListViewModel.itemsPerPage
         
         stop = min(maxData, stop)
     }
     
-    private func getCharacterList(completion: (() -> Void)? = nil) {
+    private func getRepositoriesList(completion: (() -> Void)? = nil) {
     
         isLoading = true
-        let cancellable = self.getCharacterList().sink(receiveCompletion: { result in
+        let cancellable = self.getRepositoriesList().sink(receiveCompletion: { result in
             switch result {
             case .failure(let error):
                 self.isLoading = false
@@ -61,41 +60,29 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                 completion?()
                 break
             }
-        }) { (characterList) in
+        }) { (repositoryList) in
             self.isLoading = false
             self.showAlert = false
-            self.characterList = characterList
-            self.maxData = self.characterList.count
+            self.repositoryList = repositoryList
+            self.maxData = self.repositoryList.count
             completion?()
         }
         cancellables.insert(cancellable)
     }
     
     
-    private func retrieveDataFromAPI(isSearchBegin:Bool,completion: (() -> Void)? = nil) {
+    private func retrieveDataFromAPI(completion: (() -> Void)? = nil) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             guard let self = self else { return }
             
-            if isSearchBegin {
-                self.searchCharacterList {
-                    if !self.searchCharacterListItems.isEmpty {
-                        for i in self.start...self.stop {
-                            self.items.append(self.searchCharacterListItems[i])
-                        }
-                        completion?()
-                    }else {
-                        //completion?()
-                    }
-                }
-            }else {
-                self.getCharacterList {
+                self.getRepositoriesList {
                     if self.start >= self.maxData-1 {
                         completion?()
                         
                     }else {
-                        if !self.characterList.isEmpty {
+                        if !self.repositoryList.isEmpty {
                             for i in self.start...self.stop {
-                                self.items.append(self.characterList[i])
+                                self.items.append(self.repositoryList[i])
                             }
                             completion?()
                         }else {
@@ -103,9 +90,6 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                         }
                     }
                 }
-                
-            }
-            
         }
     }
     
@@ -113,19 +97,19 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     func getData(completion: (() -> Void)? = nil) {
         
         self.incrementPaginationIndices()
-        retrieveDataFromAPI (isSearchBegin:isSearchBegin, completion: completion)
+        retrieveDataFromAPI (completion: completion)
         
     }
     
     
-    private func getCharacterDataNeeded(characterList:[CharacterListItem]?) {
+    private func getRepositoriesDataNeeded(characterList:[RepositoriesListItem]?) {
         guard  let characterList = characterList  else {
             return
         }
         
         for item in characterList {
             if let url = item.owner.url {
-                let cacellable = self.getCharacterDataNeeded(url: url)
+                let cacellable = self.getRepositoriesDataNeeded(url: url)
                     .sink(receiveCompletion: { result in
                         switch result {
                         case .failure(let error):
@@ -134,7 +118,7 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                             break
                         }
                     }) { finalResult in
-                        self.characteritemsList.append(finalResult)
+                        self.repositoryitemsList.append(finalResult)
                 }
                 cancellables.insert(cacellable)
             }
@@ -142,9 +126,8 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
         
     }
     
-    func searchCharacterList(completion: (() -> Void)? = nil) {
-        
-        let cancellable = self.searchCharacterList(searchText: searchTerm)
+    func searchRepositoriesList() {
+        let cancellable = self.searchRepositoriesList(searchText: searchTerm)
             .sink(receiveCompletion: { result in
                 switch result {
                 case .failure(let error):
@@ -154,17 +137,14 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                         self.showAlert = true
                         self.alertMessage = error.localizedDescription
                     }
-                    completion?()
                 case .finished:
                     self.isLoading = false
-                    completion?()
                     break
                 }
             }) { finalResult in
                 self.isLoading = false
                 self.showAlert = false
-                self.searchCharacterListItems = finalResult.items
-                completion?()
+                self.searchRepositoryListItems = finalResult.items
         }
         cancellables.insert(cancellable)
     }
