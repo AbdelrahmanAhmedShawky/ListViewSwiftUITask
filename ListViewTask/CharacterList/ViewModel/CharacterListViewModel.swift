@@ -8,25 +8,45 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     @Published var characterList = [CharacterListItem]()
     @Published var characteritemsList = [OwnerCharacter]()
     
+    @Published var items: [CharacterListItem] = []
+    
     @Published var searchCharacterListItems = [CharacterListItem]()
     
     @Published var isLoading: Bool
     
     @Published var showAlert: Bool
     
-     @Published var alertMessage = ""
+    @Published var alertMessage = ""
+    var isSearchBegin :Bool
     
     private var cancellables = Set<AnyCancellable>()
     
     var searchTerm: String = ""
     
+    static private var itemsPerPage = 10
+    private var start = -CharacterListViewModel.itemsPerPage
+    private var stop = -1
+    private var maxData = 10
+    
+    
     init(apiSession: APIService = APISession()) {
         self.apiSession = apiSession
         isLoading = false
         showAlert = false
+        isSearchBegin = false
     }
     
-    func getCharacterList() {
+    
+    private func incrementPaginationIndices() {
+        
+        start += CharacterListViewModel.itemsPerPage
+        stop += CharacterListViewModel.itemsPerPage
+        
+        stop = min(maxData, stop)
+    }
+    
+    private func getCharacterList(completion: (() -> Void)? = nil) {
+    
         isLoading = true
         let cancellable = self.getCharacterList().sink(receiveCompletion: { result in
             switch result {
@@ -35,20 +55,70 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                 self.showAlert = true
                 print("Handle error: \(error)")
                 self.alertMessage = error.localizedDescription
+                completion?()
             case .finished:
                 self.isLoading = false
+                completion?()
                 break
             }
         }) { (characterList) in
             self.isLoading = false
             self.showAlert = false
             self.characterList = characterList
+            self.maxData = self.characterList.count
+            completion?()
         }
         cancellables.insert(cancellable)
     }
     
     
-    func getCharacterDataNeeded(characterList:[CharacterListItem]?) {
+    private func retrieveDataFromAPI(isSearchBegin:Bool,completion: (() -> Void)? = nil) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            guard let self = self else { return }
+            
+            if isSearchBegin {
+                self.searchCharacterList {
+                    if !self.searchCharacterListItems.isEmpty {
+                        for i in self.start...self.stop {
+                            self.items.append(self.searchCharacterListItems[i])
+                        }
+                        completion?()
+                    }else {
+                        //completion?()
+                    }
+                }
+            }else {
+                self.getCharacterList {
+                    if self.start >= self.maxData-1 {
+                        completion?()
+                        
+                    }else {
+                        if !self.characterList.isEmpty {
+                            for i in self.start...self.stop {
+                                self.items.append(self.characterList[i])
+                            }
+                            completion?()
+                        }else {
+                            //completion?()
+                        }
+                    }
+                }
+                
+            }
+            
+        }
+    }
+    
+    
+    func getData(completion: (() -> Void)? = nil) {
+        
+        self.incrementPaginationIndices()
+        retrieveDataFromAPI (isSearchBegin:isSearchBegin, completion: completion)
+        
+    }
+    
+    
+    private func getCharacterDataNeeded(characterList:[CharacterListItem]?) {
         guard  let characterList = characterList  else {
             return
         }
@@ -59,40 +129,44 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                     .sink(receiveCompletion: { result in
                         switch result {
                         case .failure(let error):
-                           self.alertMessage = error.localizedDescription
+                            self.alertMessage = error.localizedDescription
                         case .finished:
                             break
                         }
                     }) { finalResult in
                         self.characteritemsList.append(finalResult)
-                    }
+                }
                 cancellables.insert(cacellable)
             }
         }
         
     }
     
-    func searchCharacterList() {
+    func searchCharacterList(completion: (() -> Void)? = nil) {
+        
         let cancellable = self.searchCharacterList(searchText: searchTerm)
             .sink(receiveCompletion: { result in
                 switch result {
                 case .failure(let error):
                     print("Handle error: \(error)")
-                     self.isLoading = false
+                    self.isLoading = false
                     if !self.searchTerm.isEmpty {
                         self.showAlert = true
                         self.alertMessage = error.localizedDescription
                     }
+                    completion?()
                 case .finished:
                     self.isLoading = false
+                    completion?()
                     break
                 }
             }) { finalResult in
                 self.isLoading = false
                 self.showAlert = false
                 self.searchCharacterListItems = finalResult.items
-            }
+                completion?()
+        }
         cancellables.insert(cancellable)
     }
-            
+    
 }

@@ -3,4 +3,372 @@
    uuid = "E3ECEDA0-2FF8-4C5E-A924-8DF4A0357C8B"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "21B65F47-4DD6-42E8-9936-E1D7617B410A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "retrieveDataFromAPI(isSearchBegin:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BC4C8382-3B8E-4138-A677-D83B4C324C1A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "getCharacterList(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BC4C8382-3B8E-4138-A677-D83B4C324C1A - de07abb5c3d318c9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListViewTask.CharacterListViewModel.(getCharacterList in _947B717BDBD555E02A9E0B01865B31B6)(completion: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ListViewTask"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ashawky/Documents/Xcode%20Projects/ListViewTask/ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "386">
+               </Location>
+               <Location
+                  uuid = "BC4C8382-3B8E-4138-A677-D83B4C324C1A - 41cf52d1a0981fa0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;ListViewTask.ApiErorr&gt;) -&gt; () in ListViewTask.CharacterListViewModel.(getCharacterList in _947B717BDBD555E02A9E0B01865B31B6)(completion: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ListViewTask"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ashawky/Documents/Xcode%20Projects/ListViewTask/ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "1163">
+               </Location>
+               <Location
+                  uuid = "BC4C8382-3B8E-4138-A677-D83B4C324C1A - 469ad0f3279ef41"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Array&lt;ListViewTask.CharacterListItem&gt;) -&gt; () in ListViewTask.CharacterListViewModel.(getCharacterList in _947B717BDBD555E02A9E0B01865B31B6)(completion: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ListViewTask"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ashawky/Documents/Xcode%20Projects/ListViewTask/ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "132">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3ED7613-20E7-4A32-9DD8-5F1216A3E8C8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "getCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1DBBB6B2-647E-468B-9021-520A739FAE27"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "getCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "57234BCF-4C93-4ED2-B3E6-C78DE9309B43"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "getCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3B181854-5784-45E0-8148-56BAF0FA302A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "getCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AE91702F-6AFD-491B-AFE4-63DC8408C769"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EC1D1117-F09F-4BDD-B483-96251DE6030A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E05A7292-5BDD-4E73-AFEB-D8A632AA2E72"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3359B85F-692B-4670-AF01-E5BEC2DB6CA7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F279B10E-0D9A-49F7-9698-67106F62F741"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "960164AF-024C-463B-ACF4-472BBA0B9F4F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "834D3E16-5EB9-453C-89E7-BB94F3DA3C35"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9F165E54-0337-46F8-9D6B-E764E43AC693"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "85E3AFAC-D0E9-4C86-801E-9404E37DE6A8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B44ACD6-8EAD-4A3D-B2E4-93BCA756F8FA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2B44ACD6-8EAD-4A3D-B2E4-93BCA756F8FA - d80ebc23b5163d89"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListViewTask.CharacterListViewModel.searchCharacterList(completion: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ListViewTask"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ashawky/Documents/Xcode%20Projects/ListViewTask/ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "164"
+                  endingLineNumber = "164"
+                  offsetFromSymbolStart = "668">
+               </Location>
+               <Location
+                  uuid = "2B44ACD6-8EAD-4A3D-B2E4-93BCA756F8FA - c10d48a000edab0f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;ListViewTask.ApiErorr&gt;) -&gt; () in ListViewTask.CharacterListViewModel.searchCharacterList(completion: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ListViewTask"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ashawky/Documents/Xcode%20Projects/ListViewTask/ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "164"
+                  endingLineNumber = "164"
+                  offsetFromSymbolStart = "1235">
+               </Location>
+               <Location
+                  uuid = "2B44ACD6-8EAD-4A3D-B2E4-93BCA756F8FA - 741f736bd6ca9c91"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (ListViewTask.CharacterSearchListItem) -&gt; () in ListViewTask.CharacterListViewModel.searchCharacterList(completion: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "ListViewTask"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ashawky/Documents/Xcode%20Projects/ListViewTask/ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "165"
+                  endingLineNumber = "165"
+                  offsetFromSymbolStart = "163">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "18D29EBF-9B26-42FD-A9D6-9EFD69CE5ED5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListViewTask/CharacterList/ViewModel/CharacterListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "searchCharacterList(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

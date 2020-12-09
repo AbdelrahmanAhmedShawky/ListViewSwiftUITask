@@ -16,15 +16,19 @@ struct CharacterListView: View {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                 TextField("search", text: self.$viewModel.searchTerm, onEditingChanged: { isEditing in
-                                    self.viewModel.searchCharacterList()
+                                    self.viewModel.isSearchBegin = true
+                                    self.viewModel.getData()
                                     self.showCancelButton = true
                                 }, onCommit: {
-                                    print("onCommit")
+                                    self.viewModel.isSearchBegin = true
+                                    self.viewModel.getData()
+                                    self.showCancelButton = true
                                 }).foregroundColor(.primary)
                                 
                                 Button(action: {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
+                                    self.viewModel.isSearchBegin = false
                                     self.viewModel.searchCharacterListItems.removeAll()
                                     self.showCancelButton = false
                                 }) {
@@ -41,6 +45,7 @@ struct CharacterListView: View {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
                                     self.viewModel.searchCharacterListItems.removeAll()
+                                     self.viewModel.isSearchBegin = false
                                     self.showCancelButton = false
                                 }
                                 .foregroundColor(Color(.systemBlue))
@@ -48,8 +53,8 @@ struct CharacterListView: View {
                         }
                         .padding(.horizontal)
                         .navigationBarHidden(self.showCancelButton)
-                        List(self.viewModel.searchCharacterListItems.isEmpty ? self.viewModel.characterList : self.viewModel.searchCharacterListItems) { item in
-                            CharacterListViewCell(name: item.name, item: item.owner, id: item.id)
+                        ListPagination(items: self.viewModel.items, offset: 8, pagination: self.viewModel.getData) { item in
+                          CharacterListViewCell(name: item.name, item: item.owner, id: item.id)
                         }
                         .navigationBarTitle("Task")
                         .resignKeyboardOnDragGesture()
@@ -57,7 +62,7 @@ struct CharacterListView: View {
                     
                 }}
                 .onAppear {
-                    self.viewModel.getCharacterList()
+                     self.viewModel.getData()
             }
         }.alert(isPresented: $viewModel.showAlert) {
             Alert(
@@ -66,7 +71,8 @@ struct CharacterListView: View {
                 primaryButton: .destructive(Text("Retry"), action: {
                     UIApplication.shared.endEditing(true)
                     self.viewModel.searchTerm = ""
-                    self.viewModel.getCharacterList()
+                     self.viewModel.isSearchBegin = false
+                    self.viewModel.getData()
                     self.viewModel.searchCharacterListItems.removeAll()
                 }),
                 secondaryButton: .default(Text("Cancel"), action: {
