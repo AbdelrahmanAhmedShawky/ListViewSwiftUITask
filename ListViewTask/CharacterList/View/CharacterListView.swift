@@ -8,7 +8,7 @@ struct CharacterListView: View {
     var body: some View {
         NavigationView {
             List(self.viewModel.characterList) { item in
-                CharacterListViewCell(name: item.name, item: item.owner)
+                CharacterListViewCell(name: item.name, item: item.owner, id: item.id)
             }
             .navigationBarTitle("Task")
         }
