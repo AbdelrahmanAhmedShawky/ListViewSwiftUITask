@@ -1,6 +1,6 @@
 import Foundation
 
-struct CharacterListItem: Codable,Identifiable {
+struct RepositoriesListItem: Codable,Identifiable {
     
     let id: Int
     let name: String
@@ -10,10 +10,10 @@ struct CharacterListItem: Codable,Identifiable {
      
 }
 
-struct CharacterSearchListItem: Codable {
+struct RepositoriesSearchListItem: Codable {
     
     let totalCount:Float
     let incompleteResults: Bool
-    let items:[CharacterListItem]
+    let items:[RepositoriesListItem]
     
 }

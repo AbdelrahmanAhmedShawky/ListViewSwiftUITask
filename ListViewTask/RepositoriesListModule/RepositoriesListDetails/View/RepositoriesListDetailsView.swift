@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct CharacterListDetailsView: View {
+struct RepositoriesListDetailsView: View {
     var name:String
     var item: OwnerCharacter
     var id:Int
-    @ObservedObject var viewModel : CharacterListDetailsViewModel
+    @ObservedObject var viewModel : RepositoriesListDetailsViewModel
     
     init(name:String,item: OwnerCharacter,id:Int) {
-        viewModel = CharacterListDetailsViewModel(id: id)
+        viewModel = RepositoriesListDetailsViewModel(id: id)
         self.item = item
         self.name = name
         self.id = id
@@ -52,7 +52,7 @@ struct CharacterListDetailsView: View {
                 }
             }
             .onAppear {
-                self.viewModel.getCharacterListDetails()
+                self.viewModel.getRepositoriesListDetails()
             }
             .navigationBarTitle(self.name.capitalized)
         }.alert(isPresented: $viewModel.showAlert) {
@@ -60,7 +60,7 @@ struct CharacterListDetailsView: View {
                 title: Text(""),
                 message: Text($viewModel.alertMessage.wrappedValue),
                 primaryButton: .destructive(Text("Retry"), action: {
-                    self.viewModel.getCharacterListDetails()
+                    self.viewModel.getRepositoriesListDetails()
                 }),
                 secondaryButton: .default(Text("Cancel"), action: {
                     // do something
@@ -72,8 +72,8 @@ struct CharacterListDetailsView: View {
     
 }
 
-struct CharacterListDetailsView_Previews: PreviewProvider {
+struct RepositoriesListDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterListDetailsView(name: "", item: OwnerCharacter(login: "", id: 0, avatarUrl: "", url: "", type: "", createdAt: ""), id: 0)
+        RepositoriesListDetailsView(name: "", item: OwnerCharacter(login: "", id: 0, avatarUrl: "", url: "", type: "", createdAt: ""), id: 0)
     }
 }

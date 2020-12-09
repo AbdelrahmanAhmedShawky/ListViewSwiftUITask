@@ -18,7 +18,7 @@ struct UrlImageView: View {
     
 }
 
-class UrlImageModel: ObservableObject,CharacterListService {
+class UrlImageModel: ObservableObject,RepositoriesListService {
     var apiSession: APIService
     
     @Published var image: UIImage?

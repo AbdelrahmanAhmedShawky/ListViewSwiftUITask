@@ -1,22 +1,22 @@
 import Foundation
 
-enum CharacterEndPoints {
-    case characterList
-    case characterUrl(String)
-    case characterListDetail(String)
-    case searchCharacterList(String)
+enum RepositoriesEndPoints {
+    case repositoriesList
+    case repositoriesOwnerUrl(String)
+    case repositoriesListDetail(String)
+    case searchRepositoriesList(String)
 }
 
-extension CharacterEndPoints: RequestBuilder {
+extension RepositoriesEndPoints: RequestBuilder {
     
     var urlRequest: URLRequest {
         switch self {
-        case .characterList:
+        case .repositoriesList:
             guard let url = URL(string: "\(Constants.BASEURL)/repositories")
                 else {preconditionFailure("Invalid URL format")}
             let request = URLRequest(url: url)
             return request
-        case .characterUrl(let url):
+        case .repositoriesOwnerUrl(let url):
             
             guard let url = URL(string: url)
                 else {preconditionFailure("Invalid URL format")}
@@ -24,14 +24,14 @@ extension CharacterEndPoints: RequestBuilder {
             let request = URLRequest(url: url)
             return request
             
-        case .characterListDetail(let id):
+        case .repositoriesListDetail(let id):
             
             guard let url = URL(string: "\(Constants.BASEURL)/repositories/\(id)")
                 else {preconditionFailure("Invalid URL format")}
             
             let request = URLRequest(url: url)
             return request
-        case .searchCharacterList(let q):
+        case .searchRepositoriesList(let q):
             guard let url = URL(string: "\(Constants.BASEURL)/search/repositories?q=\(q)")
                 else {preconditionFailure("Invalid URL format")}
             

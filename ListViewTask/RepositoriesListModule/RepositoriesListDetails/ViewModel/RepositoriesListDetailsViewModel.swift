@@ -2,14 +2,14 @@ import Foundation
 import Combine
 
 
-class CharacterListDetailsViewModel:ObservableObject,CharacterListService {
+class RepositoriesListDetailsViewModel:ObservableObject,RepositoriesListService {
     var apiSession: APIService
     
     private var cancellables = Set<AnyCancellable>()
     
     let id:Int
     
-    @Published var item: CharacterListDetailsItem?
+    @Published var item: RepositoriesListDetailsItem?
     
     @Published var dateString: String?
     
@@ -27,9 +27,9 @@ class CharacterListDetailsViewModel:ObservableObject,CharacterListService {
         
     }
     
-    func getCharacterListDetails() {
+    func getRepositoriesListDetails() {
         isLoading = true
-        let cancellable = self.getCharacterListDetails(id: "\(id)").sink(receiveCompletion: { result in
+        let cancellable = self.getRepositoriesListDetails(id: "\(id)").sink(receiveCompletion: { result in
             switch result {
             case .failure(let error):
                 self.isLoading = false

@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct CharacterListViewCell: View {
+struct RepositoriesListViewCell: View {
     var name:String
     var item: OwnerCharacter
     var id:Int
     var body: some View {
-        NavigationLink(destination: CharacterListDetailsView(name: name, item: item, id: id)) {
+        NavigationLink(destination: RepositoriesListDetailsView(name: name, item: item, id: id)) {
             HStack(alignment: .center,spacing: 8, content: {
             UrlImageView(urlString: item.avatarUrl)
                 .frame(width:85, height:90)
@@ -20,8 +20,8 @@ struct CharacterListViewCell: View {
     }
 }
 
-struct CharacterListViewCell_Previews: PreviewProvider {
+struct RepositoriesListViewCell_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterListViewCell(name: "", item: OwnerCharacter(login: "", id: 0, avatarUrl: "", url: "", type: "", createdAt: ""), id: 0)
+        RepositoriesListViewCell(name: "", item: OwnerCharacter(login: "", id: 0, avatarUrl: "", url: "", type: "", createdAt: ""), id: 0)
     }
 }

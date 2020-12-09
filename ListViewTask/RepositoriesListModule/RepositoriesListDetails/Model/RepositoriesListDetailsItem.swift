@@ -1,6 +1,6 @@
 import Foundation
 
-struct CharacterListDetailsItem: Codable,Identifiable {
+struct RepositoriesListDetailsItem: Codable,Identifiable {
     
     let id: Int
     let name: String
