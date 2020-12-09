@@ -5,59 +5,76 @@ struct CharacterListView: View {
     
     @ObservedObject var viewModel = CharacterListViewModel()
     @State private var showCancelButton: Bool = false
-
+    
     var body: some View {
-        NavigationView {
-            Group {
-                VStack {
-                    // Search view
-                    HStack {
+        LoadingView(isShowing: .constant($viewModel.isLoading.wrappedValue)) {
+            NavigationView {
+                Group {
+                    VStack {
+                        // Search view
                         HStack {
-                            Image(systemName: "magnifyingglass")
-                            TextField("search", text: $viewModel.searchTerm, onEditingChanged: { isEditing in
-                                self.showCancelButton = true
-                                self.viewModel.searchCharacterList()
-                            }, onCommit: {
-                                print("onCommit")
-                            }).foregroundColor(.primary)
+                            HStack {
+                                Image(systemName: "magnifyingglass")
+                                TextField("search", text: self.$viewModel.searchTerm, onEditingChanged: { isEditing in
+                                    self.viewModel.searchCharacterList()
+                                    self.showCancelButton = true
+                                }, onCommit: {
+                                    print("onCommit")
+                                }).foregroundColor(.primary)
+                                
+                                Button(action: {
+                                    UIApplication.shared.endEditing(true)
+                                    self.viewModel.searchTerm = ""
+                                    self.viewModel.searchCharacterListItems.removeAll()
+                                    self.showCancelButton = false
+                                }) {
+                                    Image(systemName: "xmark.circle.fill").opacity(self.viewModel.searchTerm == "" ? 0 : 1)
+                                }
+                            }
+                            .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                            .foregroundColor(.secondary)
+                            .background(Color(.secondarySystemBackground))
+                            .cornerRadius(10.0)
                             
-                            Button(action: {
-                                UIApplication.shared.endEditing(true)
-                                viewModel.searchTerm = ""
-                                self.viewModel.searchCharacterListItems.removeAll()
-                                self.showCancelButton = false
-                            }) {
-                                Image(systemName: "xmark.circle.fill").opacity(viewModel.searchTerm == "" ? 0 : 1)
+                            if self.showCancelButton  {
+                                Button("Cancel") {
+                                    UIApplication.shared.endEditing(true)
+                                    self.viewModel.searchTerm = ""
+                                    self.viewModel.searchCharacterListItems.removeAll()
+                                    self.showCancelButton = false
+                                }
+                                .foregroundColor(Color(.systemBlue))
                             }
                         }
-                        .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
-                        .foregroundColor(.secondary)
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(10.0)
-                        
-                        if showCancelButton  {
-                            Button("Cancel") {
-                                UIApplication.shared.endEditing(true) // this must be placed before the other commands here
-                                viewModel.searchTerm = ""
-                                self.viewModel.searchCharacterListItems.removeAll()
-                                self.showCancelButton = false
-                            }
-                            .foregroundColor(Color(.systemBlue))
+                        .padding(.horizontal)
+                        .navigationBarHidden(self.showCancelButton)
+                        List(self.viewModel.searchCharacterListItems.isEmpty ? self.viewModel.characterList : self.viewModel.searchCharacterListItems) { item in
+                            CharacterListViewCell(name: item.name, item: item.owner, id: item.id)
                         }
+                        .navigationBarTitle("Task")
+                        .resignKeyboardOnDragGesture()
                     }
-                    .padding(.horizontal)
-                    .navigationBarHidden(showCancelButton)
-                    List(viewModel.searchCharacterListItems.isEmpty ? self.viewModel.characterList : self.viewModel.searchCharacterListItems) { item in
-                        CharacterListViewCell(name: item.name, item: item.owner, id: item.id)
-                    }
-                    .navigationBarTitle("Task")
-                    .resignKeyboardOnDragGesture()
-                }
-                
-            }}
-            .onAppear {
-                self.viewModel.getCharacterList()
+                    
+                }}
+                .onAppear {
+                    self.viewModel.getCharacterList()
             }
+        }.alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text(""),
+                message: Text($viewModel.alertMessage.wrappedValue),
+                primaryButton: .destructive(Text("Retry"), action: {
+                    UIApplication.shared.endEditing(true)
+                    self.viewModel.searchTerm = ""
+                    self.viewModel.getCharacterList()
+                    self.viewModel.searchCharacterListItems.removeAll()
+                }),
+                secondaryButton: .default(Text("Cancel"), action: {
+                    // do something
+                })
+            )
+        }
+        
     }
 }
 

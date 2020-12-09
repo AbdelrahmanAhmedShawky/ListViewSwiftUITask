@@ -8,25 +8,40 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     @Published var characterList = [CharacterListItem]()
     @Published var characteritemsList = [OwnerCharacter]()
     
+    @Published var isLoading: Bool
+    
     @Published var searchCharacterListItems = [CharacterListItem]()
+    
+    @Published var showAlert: Bool
+    
+     @Published var alertMessage = ""
+    
     private var cancellables = Set<AnyCancellable>()
     
     var searchTerm: String = ""
     
     init(apiSession: APIService = APISession()) {
         self.apiSession = apiSession
-        
+        isLoading = false
+        showAlert = false
     }
     
     func getCharacterList() {
+        isLoading = true
         let cancellable = self.getCharacterList().sink(receiveCompletion: { result in
             switch result {
             case .failure(let error):
+                self.isLoading = false
+                self.showAlert = true
                 print("Handle error: \(error)")
+                self.alertMessage = error.localizedDescription
             case .finished:
+                self.isLoading = false
                 break
             }
         }) { (characterList) in
+            self.isLoading = false
+            self.showAlert = false
             self.characterList = characterList
         }
         cancellables.insert(cancellable)
@@ -44,7 +59,7 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                     .sink(receiveCompletion: { result in
                         switch result {
                         case .failure(let error):
-                            print("Handle error: \(error)")
+                           self.alertMessage = error.localizedDescription
                         case .finished:
                             break
                         }
@@ -58,16 +73,24 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     }
     
     func searchCharacterList() {
+        //isLoading = true
         let cancellable = self.searchCharacterList(searchText: searchTerm)
             .sink(receiveCompletion: { result in
                 switch result {
                 case .failure(let error):
                     print("Handle error: \(error)")
+                     self.isLoading = false
+                    if !self.searchTerm.isEmpty {
+                        self.showAlert = true
+                        self.alertMessage = error.localizedDescription
+                    }
                 case .finished:
+                    self.isLoading = false
                     break
                 }
             }) { finalResult in
-                print(finalResult.incompleteResults)
+                self.isLoading = false
+                self.showAlert = false
                 self.searchCharacterListItems = finalResult.items
             }
         cancellables.insert(cancellable)
