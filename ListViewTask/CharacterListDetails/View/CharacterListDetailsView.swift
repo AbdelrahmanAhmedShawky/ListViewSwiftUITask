@@ -15,25 +15,41 @@ struct CharacterListDetailsView: View {
     
     var body: some View {
         LoadingView(isShowing: .constant($viewModel.isLoading.wrappedValue)) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16.0) {
-                    UrlImageView(urlString: self.item.avatarUrl)
-                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.5)
-                    Divider()
-                    HStack(alignment: .firstTextBaseline, spacing: 32) {
-                        VStack {
-                            Text(self.item.login ?? "")
+            GeometryReader { gp in
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16.0) {
+                        UrlImageView(urlString: self.viewModel.item?.owner.avatarUrl ?? "")
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.5)
+                        Divider()
+                        VStack(spacing: 8) {
+                            VStack(spacing: 8) {
+                                HStack(alignment: .center, spacing: 4) {
+                                    Text("login:  ")
+                                    Text(self.item.login ?? "")
+                                }
+                                Divider()
+                                HStack(alignment: .center, spacing: 4) {
+                                    Text("full Name:  ")
+                                    Text(self.viewModel.item?.fullName ?? "")
+                                }
+                            }
                             Divider()
-                            Text(self.viewModel.item?.fullName ?? "")
+                            VStack(spacing: 8) {
+                                HStack(alignment: .center, spacing: 4) {
+                                    Text("Type:  ")
+                                    Text(self.viewModel.item?.owner.type ?? "")
+                                    
+                                }
+                                Divider()
+                                HStack(alignment: .center, spacing: 4) {
+                                    Text("Created At:  ")
+                                    Text(self.viewModel.dateString ?? "")
+                                }
+                            }
                         }
-                        VStack {
-                            Text(self.viewModel.item?.owner.type ?? "")
-                            Divider()
-                            Text(self.viewModel.dateString ?? "")
-                        }
-                    }
-                    Spacer()
-                }.padding([.top],8)
+                        Spacer()
+                    }.padding([.top],8)
+                }
             }
             .onAppear {
                 self.viewModel.getCharacterListDetails()

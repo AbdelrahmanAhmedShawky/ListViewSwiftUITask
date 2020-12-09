@@ -9,7 +9,7 @@ class CharacterListDetailsViewModel:ObservableObject,CharacterListService {
     
     let id:Int
     
-    @Published var item: CharacterListItem2?
+    @Published var item: CharacterListDetailsItem?
     
     @Published var dateString: String?
     

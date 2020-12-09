@@ -12,7 +12,7 @@ extension CharacterEndPoints: RequestBuilder {
     var urlRequest: URLRequest {
         switch self {
         case .characterList:
-            guard let url = URL(string: "https://api.github.com/repositories")
+            guard let url = URL(string: "\(Constants.BASEURL)/repositories")
                 else {preconditionFailure("Invalid URL format")}
             let request = URLRequest(url: url)
             return request
@@ -26,13 +26,13 @@ extension CharacterEndPoints: RequestBuilder {
             
         case .characterListDetail(let id):
             
-            guard let url = URL(string: "https://api.github.com/repositories/\(id)")
+            guard let url = URL(string: "\(Constants.BASEURL)/repositories/\(id)")
                 else {preconditionFailure("Invalid URL format")}
             
             let request = URLRequest(url: url)
             return request
         case .searchCharacterList(let q):
-            guard let url = URL(string: "https://api.github.com/search/repositories?q=\(q)")
+            guard let url = URL(string: "\(Constants.BASEURL)/search/repositories?q=\(q)")
                 else {preconditionFailure("Invalid URL format")}
             
             let request = URLRequest(url: url)

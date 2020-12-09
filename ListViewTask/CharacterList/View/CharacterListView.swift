@@ -16,19 +16,16 @@ struct CharacterListView: View {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                 TextField("search", text: self.$viewModel.searchTerm, onEditingChanged: { isEditing in
-                                    self.viewModel.isSearchBegin = true
-                                    self.viewModel.getData()
+                                    self.viewModel.searchCharacterList()
                                     self.showCancelButton = true
                                 }, onCommit: {
-                                    self.viewModel.isSearchBegin = true
-                                    self.viewModel.getData()
+                                    self.viewModel.searchCharacterList()
                                     self.showCancelButton = true
                                 }).foregroundColor(.primary)
                                 
                                 Button(action: {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
-                                    self.viewModel.isSearchBegin = false
                                     self.viewModel.searchCharacterListItems.removeAll()
                                     self.showCancelButton = false
                                 }) {
@@ -45,7 +42,6 @@ struct CharacterListView: View {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
                                     self.viewModel.searchCharacterListItems.removeAll()
-                                     self.viewModel.isSearchBegin = false
                                     self.showCancelButton = false
                                 }
                                 .foregroundColor(Color(.systemBlue))
@@ -53,17 +49,17 @@ struct CharacterListView: View {
                         }
                         .padding(.horizontal)
                         .navigationBarHidden(self.showCancelButton)
-                        ListPagination(items: self.viewModel.items, offset: 8, pagination: self.viewModel.getData) { item in
-                          CharacterListViewCell(name: item.name, item: item.owner, id: item.id)
+                        ListPagination(items:self.viewModel.searchCharacterListItems.isEmpty ? self.viewModel.items : self.viewModel.searchCharacterListItems , offset: 8, pagination: self.viewModel.getData) { item in
+                            CharacterListViewCell(name: item.name, item: item.owner, id: item.id)
                         }
-                        .navigationBarTitle("Task")
+                        .navigationBarTitle("Github Repositories")
                         .resignKeyboardOnDragGesture()
                     }
                     
                 }}
                 .onAppear {
-                     self.viewModel.getData()
-            }
+                    self.viewModel.getData()
+                }
         }.alert(isPresented: $viewModel.showAlert) {
             Alert(
                 title: Text(""),
@@ -71,7 +67,6 @@ struct CharacterListView: View {
                 primaryButton: .destructive(Text("Retry"), action: {
                     UIApplication.shared.endEditing(true)
                     self.viewModel.searchTerm = ""
-                     self.viewModel.isSearchBegin = false
                     self.viewModel.getData()
                     self.viewModel.searchCharacterListItems.removeAll()
                 }),
@@ -87,29 +82,5 @@ struct CharacterListView: View {
 struct CharacterListView_Previews: PreviewProvider {
     static var previews: some View {
         CharacterListView()
-    }
-}
-
-extension UIApplication {
-    func endEditing(_ force: Bool) {
-        self.windows
-            .filter{$0.isKeyWindow}
-            .first?
-            .endEditing(force)
-    }
-}
-
-struct ResignKeyboardOnDragGesture: ViewModifier {
-    var gesture = DragGesture().onChanged{_ in
-        UIApplication.shared.endEditing(true)
-    }
-    func body(content: Content) -> some View {
-        content.gesture(gesture)
-    }
-}
-
-extension View {
-    func resignKeyboardOnDragGesture() -> some View {
-        return modifier(ResignKeyboardOnDragGesture())
     }
 }

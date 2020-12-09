@@ -17,7 +17,6 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     @Published var showAlert: Bool
     
     @Published var alertMessage = ""
-    var isSearchBegin :Bool
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -33,7 +32,6 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
         self.apiSession = apiSession
         isLoading = false
         showAlert = false
-        isSearchBegin = false
     }
     
     
@@ -72,22 +70,10 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     }
     
     
-    private func retrieveDataFromAPI(isSearchBegin:Bool,completion: (() -> Void)? = nil) {
+    private func retrieveDataFromAPI(completion: (() -> Void)? = nil) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             guard let self = self else { return }
             
-            if isSearchBegin {
-                self.searchCharacterList {
-                    if !self.searchCharacterListItems.isEmpty {
-                        for i in self.start...self.stop {
-                            self.items.append(self.searchCharacterListItems[i])
-                        }
-                        completion?()
-                    }else {
-                        //completion?()
-                    }
-                }
-            }else {
                 self.getCharacterList {
                     if self.start >= self.maxData-1 {
                         completion?()
@@ -103,9 +89,6 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                         }
                     }
                 }
-                
-            }
-            
         }
     }
     
@@ -113,7 +96,7 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
     func getData(completion: (() -> Void)? = nil) {
         
         self.incrementPaginationIndices()
-        retrieveDataFromAPI (isSearchBegin:isSearchBegin, completion: completion)
+        retrieveDataFromAPI (completion: completion)
         
     }
     
@@ -142,8 +125,7 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
         
     }
     
-    func searchCharacterList(completion: (() -> Void)? = nil) {
-        
+    func searchCharacterList() {
         let cancellable = self.searchCharacterList(searchText: searchTerm)
             .sink(receiveCompletion: { result in
                 switch result {
@@ -154,17 +136,14 @@ class CharacterListViewModel: ObservableObject,CharacterListService {
                         self.showAlert = true
                         self.alertMessage = error.localizedDescription
                     }
-                    completion?()
                 case .finished:
                     self.isLoading = false
-                    completion?()
                     break
                 }
             }) { finalResult in
                 self.isLoading = false
                 self.showAlert = false
                 self.searchCharacterListItems = finalResult.items
-                completion?()
         }
         cancellables.insert(cancellable)
     }
