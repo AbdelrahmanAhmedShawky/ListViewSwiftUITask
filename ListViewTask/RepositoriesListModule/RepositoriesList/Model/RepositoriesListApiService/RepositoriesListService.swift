@@ -6,7 +6,6 @@ protocol RepositoriesListService {
     
     func getRepositoriesList() ->AnyPublisher<[RepositoriesListItem],ApiErorr>
     func getRepositoriesDataNeeded(url:String) ->AnyPublisher<OwnerCharacter,ApiErorr>
-    func getRepositoriesListDetails(id:String) ->AnyPublisher<RepositoriesListDetailsItem,ApiErorr>
     func searchRepositoriesList(searchText:String) ->AnyPublisher<RepositoriesSearchListItem,ApiErorr>
     
 }
@@ -20,11 +19,6 @@ extension RepositoriesListService {
     
     func getRepositoriesDataNeeded(url:String) -> AnyPublisher<OwnerCharacter,ApiErorr> {
         return apiSession.request(with: RepositoriesEndPoints.repositoriesOwnerUrl(url))
-        .eraseToAnyPublisher()
-    }
-    
-    func getRepositoriesListDetails(id:String) -> AnyPublisher<RepositoriesListDetailsItem,ApiErorr> {
-        return apiSession.request(with: RepositoriesEndPoints.repositoriesListDetail(id))
         .eraseToAnyPublisher()
     }
     

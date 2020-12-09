@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 
-class RepositoriesListDetailsViewModel:ObservableObject,RepositoriesListService {
+class RepositoriesListDetailsViewModel:ObservableObject,RepositoriesListDetailsApiService {
     var apiSession: APIService
     
     private var cancellables = Set<AnyCancellable>()
