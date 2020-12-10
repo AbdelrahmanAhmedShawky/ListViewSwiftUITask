@@ -1,49 +1,41 @@
 import Foundation
 import Combine
 
-
 class RepositoriesListDetailsViewModel:ObservableObject,RepositoriesListDetailsApiService {
     var apiSession: APIService
-    
     private var cancellables = Set<AnyCancellable>()
     
-    let id:Int
-    
-    @Published var item: RepositoriesListDetailsItem?
-    
+    @Published var repositoriesListDetailsItem: RepositoriesListDetailsItem?
     @Published var dateString: String?
-    
-    @Published var isLoading: Bool
-    
-    @Published var showAlert: Bool
-    
+    var id:Int
+    @Published var isShowLoader: Bool
+    @Published var isShowAlert: Bool
     @Published var alertMessage = ""
     
     init(id:Int,apiSession: APIService = APISession()) {
         self.apiSession = apiSession
         self.id = id
-        isLoading = false
-        showAlert = false
+        isShowLoader = false
+        isShowAlert = false
         
     }
     
     func getRepositoriesListDetails() {
-        isLoading = true
+        isShowLoader = true
         let cancellable = self.getRepositoriesListDetails(id: "\(id)").sink(receiveCompletion: { result in
             switch result {
             case .failure(let error):
-                self.isLoading = false
-                self.showAlert = true
-                print("Handle error: \(error)")
+                self.isShowLoader = false
+                self.isShowAlert = true
                 self.alertMessage = error.localizedDescription
             case .finished:
                 break
             }
         }) { item in
-            self.item = item
+            self.repositoriesListDetailsItem = item
             self.dateString = self.convertDateFormat(inputDate: item.createdAt)
-            self.isLoading = false
-            self.showAlert = false
+            self.isShowLoader = false
+            self.isShowAlert = false
         }
         self.cancellables.insert(cancellable)
     }

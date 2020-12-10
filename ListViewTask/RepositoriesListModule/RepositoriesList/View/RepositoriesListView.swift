@@ -7,7 +7,7 @@ struct RepositoriesListView: View {
     @State private var showCancelButton: Bool = false
     
     var body: some View {
-        LoadingView(isShowing: .constant($viewModel.isLoading.wrappedValue)) {
+        LoadingView(isShowing: .constant($viewModel.isShowLoader.wrappedValue)) {
             NavigationView {
                 Group {
                     VStack {
@@ -26,7 +26,7 @@ struct RepositoriesListView: View {
                                 Button(action: {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
-                                    self.viewModel.searchRepositoryListItems.removeAll()
+                                    self.viewModel.searchRepositoryList.removeAll()
                                     self.showCancelButton = false
                                 }) {
                                     Image(systemName: "xmark.circle.fill").opacity(self.viewModel.searchTerm == "" ? 0 : 1)
@@ -41,7 +41,7 @@ struct RepositoriesListView: View {
                                 Button("Cancel") {
                                     UIApplication.shared.endEditing(true)
                                     self.viewModel.searchTerm = ""
-                                    self.viewModel.searchRepositoryListItems.removeAll()
+                                    self.viewModel.searchRepositoryList.removeAll()
                                     self.showCancelButton = false
                                 }
                                 .foregroundColor(Color(.systemBlue))
@@ -49,7 +49,7 @@ struct RepositoriesListView: View {
                         }
                         .padding(.horizontal)
                         .navigationBarHidden(self.showCancelButton)
-                        List(self.viewModel.searchRepositoryListItems.isEmpty ? self.viewModel.repositoryList : self.viewModel.searchRepositoryListItems ) { item in
+                        List(self.viewModel.searchRepositoryList.isEmpty ? self.viewModel.repositoryList : self.viewModel.searchRepositoryList ) { item in
                             RepositoriesListViewCell(name: item.name, item: item.owner, id: item.id)
                         }
                         .navigationBarTitle("Github Repositories")
@@ -60,7 +60,7 @@ struct RepositoriesListView: View {
                 .onAppear {
                     self.viewModel.getRepositoriesList()
                 }
-        }.alert(isPresented: $viewModel.showAlert) {
+        }.alert(isPresented: $viewModel.isShowAlert) {
             Alert(
                 title: Text(""),
                 message: Text($viewModel.alertMessage.wrappedValue),
@@ -68,7 +68,7 @@ struct RepositoriesListView: View {
                     UIApplication.shared.endEditing(true)
                     self.viewModel.searchTerm = ""
                     self.viewModel.getRepositoriesList()
-                    self.viewModel.searchRepositoryListItems.removeAll()
+                    self.viewModel.searchRepositoryList.removeAll()
                 }),
                 secondaryButton: .default(Text("Cancel"), action: {
                     // do something

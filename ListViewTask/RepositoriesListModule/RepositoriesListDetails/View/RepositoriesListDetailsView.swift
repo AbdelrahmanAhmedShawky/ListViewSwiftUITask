@@ -14,11 +14,11 @@ struct RepositoriesListDetailsView: View {
     }
     
     var body: some View {
-        LoadingView(isShowing: .constant($viewModel.isLoading.wrappedValue)) {
+        LoadingView(isShowing: .constant($viewModel.isShowLoader.wrappedValue)) {
             GeometryReader { gp in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16.0) {
-                        UrlImageView(urlString: self.viewModel.item?.owner.avatarUrl ?? "")
+                        UrlImageView(urlString: self.viewModel.repositoriesListDetailsItem?.owner.avatarUrl ?? "")
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.5)
                         Divider()
                         VStack(spacing: 8) {
@@ -30,14 +30,14 @@ struct RepositoriesListDetailsView: View {
                                 Divider()
                                 HStack(alignment: .center, spacing: 4) {
                                     Text("full Name:  ")
-                                    Text(self.viewModel.item?.fullName ?? "")
+                                    Text(self.viewModel.repositoriesListDetailsItem?.fullName ?? "")
                                 }
                             }
                             Divider()
                             VStack(spacing: 8) {
                                 HStack(alignment: .center, spacing: 4) {
                                     Text("Type:  ")
-                                    Text(self.viewModel.item?.owner.type ?? "")
+                                    Text(self.viewModel.repositoriesListDetailsItem?.owner.type ?? "")
                                     
                                 }
                                 Divider()
@@ -55,7 +55,7 @@ struct RepositoriesListDetailsView: View {
                 self.viewModel.getRepositoriesListDetails()
             }
             .navigationBarTitle(self.name.capitalized)
-        }.alert(isPresented: $viewModel.showAlert) {
+        }.alert(isPresented: $viewModel.isShowAlert) {
             Alert(
                 title: Text(""),
                 message: Text($viewModel.alertMessage.wrappedValue),
